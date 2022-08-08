@@ -39,7 +39,8 @@ class BinarySearchTree {
     } else {
         this.insertNode(this.tree, newNode); // helper method below
     }
-}
+};
+
     insertNode(node, newNode) {
     if (newNode.data < node.data) {
         if (node.left === null) {
@@ -56,14 +57,34 @@ class BinarySearchTree {
     }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+        return this.hasNode(this.tree, data);  
   }
 
-  find(/* data */) {
+      hasNode(node, newNode) {
+
+        if (node === null) return false;
+        if (node.data === newNode) return true;
+
+        if (newNode < node.data) {
+         return this.hasNode(node.left, newNode);
+        }
+        if (newNode > node.data) {
+         return this.hasNode(node.right, newNode);
+        }
+
+  }
+
+
+
+
+
+
+  find(node, data) {
+
     throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
+
   }
 
   remove(/* data */) {
