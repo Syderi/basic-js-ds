@@ -58,7 +58,8 @@ class BinarySearchTree {
 
       hasNode(node, newNode) {
 
-        if (node === null) return false;
+        // if (node === null) return false;
+        if (!node) return false;
         if (node.data === newNode) return true;
 
         if (newNode < node.data) {
@@ -87,21 +88,17 @@ class BinarySearchTree {
 
 
   remove(data) {
-
-    // throw new NotImplementedError('Not implemented');
-    this.tree = removeNode(this.tree, data)
+    this.tree = this.removeNode(this.tree, data)
+  }
   
-  
-  function removeNode(node, data) {
-    // throw new NotImplementedError('Not implemented');
-    // if (!node) {return node;};
-    if (!node) {return null;};
-
-    if (data < node.data) {
-    node.left = removeNode(node.left, data);
+  removeNode(node, data) {
+    if (!node) {
+      return null;
+    } else if (data < node.data) {
+    node.left = this.removeNode(node.left, data);
     return node;
     } else if (node.data < data) {
-      node.right = removeNode(node.right, data);
+      node.right = this.removeNode(node.right, data);
       return node;
     } else {
       if (!node.left && !node.right) {
@@ -109,11 +106,9 @@ class BinarySearchTree {
       }
 
       if (!node.left) {
-        node = node.rigth;
+        node = node.right;
         return node;
-      }
-
-      if (!node.right) {
+      } else if (!node.right) {
         node = node.left;
         return node;
       }
@@ -123,14 +118,10 @@ class BinarySearchTree {
         minFromRight = minFromRight.left;
       }
       node.data = minFromRight.data;
-
-      node.rigth = removeNode(node.rigth, minFromRight.data);
-
+      node.right = this.removeNode(node.right, minFromRight.data);
       return node;
     }
   }
-}
-
 
     min() {
       if(!this.tree){
@@ -144,6 +135,39 @@ class BinarySearchTree {
     return node.data;
   }
 
+//   remove(data) {
+//     this.tree = this.removeNode(data)
+//   }
+
+//   removeNode(data, posNode = this.tree) {
+//    if (posNode===null)
+//     return null;
+    
+//     if (data<posNode.data) {
+//       posNode.left = this.removeNode(data,posNode.left)
+//       return posNode;
+//     }
+//     else if (data>posNode.data) {
+//       posNode.right = this.removeNode(data,posNode.right)
+//       return posNode;
+//     } else {
+//       if(posNode.left===null && posNode.right===null) 
+//         return null;
+//       if (posNode.left===null) 
+//         return posNode.right;
+//       if (posNode.right===null) 
+//         return posNode.left;
+//       posNode.data = this.min(posNode.right);
+//       posNode.right = this.removeNode(posNode.data,posNode.right)
+//       return posNode;
+//   }
+// }
+
+
+  // min(node=this.tree) {
+  //   if (node.left===null) return node.data
+  //   else return this.min(node.left)
+  // }
 
   max(tree = this.tree) {
     if(!this.tree){
