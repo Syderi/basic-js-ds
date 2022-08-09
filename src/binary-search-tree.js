@@ -14,12 +14,7 @@ class BinarySearchTree {
   //     this.data = data;
   //     this.left = null;
   //     this.right = null;
-  //   }
-  // }
-  
-  // module.exports = {
-  //   Node
-  // };
+
 
   constructor(data)
     {
@@ -75,7 +70,6 @@ class BinarySearchTree {
   }
 
 
-
   find(data) {
 
     let node = this.tree;
@@ -92,16 +86,50 @@ class BinarySearchTree {
 }
 
 
-
   remove(data) {
-    throw new NotImplementedError('Not implemented');
 
+    // throw new NotImplementedError('Not implemented');
+    this.tree = removeNode(this.tree, data)
+  
+  
+  function removeNode(node, data) {
+    // throw new NotImplementedError('Not implemented');
+    // if (!node) {return node;};
+    if (!node) {return null;};
+
+    if (data < node.data) {
+    node.left = removeNode(node.left, data);
+    return node;
+    } else if (node.data < data) {
+      node.right = removeNode(node.right, data);
+      return node;
+    } else {
+      if (!node.left && !node.right) {
+        return null;
+      }
+
+      if (!node.left) {
+        node = node.rigth;
+        return node;
+      }
+
+      if (!node.right) {
+        node = node.left;
+        return node;
+      }
+
+      let minFromRight = node.right;
+      while (minFromRight.left) {
+        minFromRight = minFromRight.left;
+      }
+      node.data = minFromRight.data;
+
+      node.rigth = removeNode(node.rigth, minFromRight.data);
+
+      return node;
+    }
   }
-
-  removeNode(node, data) {
-    throw new NotImplementedError('Not implemented');
-
-  }
+}
 
 
     min() {
